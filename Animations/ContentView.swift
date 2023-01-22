@@ -8,30 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var animationAmount = 1.0
+    @State private var dragAmount = CGSize.zero
     
-    var body: some View {
-        VStack {
-            Button("Tap me")
-            {
-                
-            }
-            .padding(50)
-            .background(.white)
-            .foregroundColor(.black)
-            .clipShape(Circle())
-            .overlay(
-                Circle()
-                    .stroke(.red)
-                    .scaleEffect(animationAmount)
-                    .opacity(1)
-                    .animation(.easeInOut(duration: 1).repeatForever(autoreverses: true), value: animationAmount))
-            .onAppear
-            {
-                animationAmount = 2
-            }
-                    
+    var body: some View
+    {
+        VStack
+        {
+            LinearGradient(colors: [.yellow, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
+            
         }
+        .frame(width: 200, height: 200)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .offset(dragAmount)
+        .gesture(
+            DragGesture()
+                .onChanged { dragAmount = $0.translation }
+                .onEnded( {_ in dragAmount = .zero } )
+        )
     }
 }
 
