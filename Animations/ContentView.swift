@@ -8,23 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var letters = Array("Hello SwiftUI") //this makes letters from the text string
+    @State private var enabled = false
     @State private var dragAmount = CGSize.zero
     
     var body: some View
     {
         VStack
         {
-            LinearGradient(colors: [.yellow, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
-            
+            Text("Hello SwiftUI")
         }
-        .frame(width: 200, height: 200)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .offset(dragAmount)
-        .gesture(
-            DragGesture()
-                .onChanged { dragAmount = $0.translation }
-                .onEnded( {_ in dragAmount = .zero } )
-        )
     }
 }
 
